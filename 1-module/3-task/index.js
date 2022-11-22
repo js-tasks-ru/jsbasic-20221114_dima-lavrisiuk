@@ -1,5 +1,5 @@
 function ucFirst(str) {
-  if(!str.length) {
+  if(!str) {
     return str;
   }
 
