@@ -1,3 +1,8 @@
 function checkSpam(str) {
-  // ваш код...
+  str = str.toLowerCase();
+
+  return (
+    str.indexOf('1xbet') !== -1 ||
+    str.indexOf('xxx') !== -1
+  );
 }
