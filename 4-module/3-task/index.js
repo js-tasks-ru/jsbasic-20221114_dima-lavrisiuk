@@ -1,5 +1,5 @@
 function highlight(table) {
-  for (const row of table.rows) {
+  for (const row of table.querySelector('tbody').rows) {
     switch (row.cells[3].dataset['available']) {
       case 'true':
         row.classList.add('available');
