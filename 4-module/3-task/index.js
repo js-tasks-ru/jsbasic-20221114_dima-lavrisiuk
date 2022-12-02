@@ -1,10 +1,10 @@
 function highlight(table) {
   for (const row of table.rows) {
     switch (row.cells[3].dataset['available']) {
-      case "true":
+      case 'true':
         row.classList.add('available');
         break;
-      case "false":
+      case 'false':
         row.classList.add('unavailable');
         break;
       default:
