@@ -8,7 +8,7 @@ function highlight(table) {
         row.classList.add('unavailable');
         break;
       default:
-        row.setAttribute('hidden', 'true');
+        row.hidden = true;
     }
 
     row.style.textDecoration =
