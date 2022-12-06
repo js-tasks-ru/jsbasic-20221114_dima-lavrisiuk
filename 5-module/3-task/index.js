@@ -7,8 +7,8 @@ function Carousel(node) {
       this.arrowLeft = $('.carousel__arrow_left');
       this.arrowRight = $('.carousel__arrow_right');
 
-      carousel.setCurrentSlideNumber(0);
-      carousel.updateVisibilityOfArrows();
+      this.setCurrentSlideNumber(0);
+      this.updateVisibilityOfArrows();
 
       this.arrowLeft.addEventListener('click', e => this.eventScroll(e));
       this.arrowRight.addEventListener('click', e => this.eventScroll(e));
