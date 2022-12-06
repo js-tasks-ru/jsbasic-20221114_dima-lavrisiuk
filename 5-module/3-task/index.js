@@ -1,5 +1,5 @@
 function Carousel(node) {
-  const $ = (selector) => document.querySelector(node).querySelector(selector);
+  const $ = (selector) => node.querySelector(selector);
 
   const carousel = {
     innitCarousel() {
@@ -55,5 +55,5 @@ function Carousel(node) {
 }
 
 function initCarousel() {
-  const carousel = new Carousel('.carousel');
+  const carousel = new Carousel(document.querySelector('.carousel'));
 }
