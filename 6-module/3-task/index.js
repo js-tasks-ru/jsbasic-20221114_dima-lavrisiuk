@@ -41,10 +41,10 @@ export default class Carousel {
     this.#actionSwitchSlider(+1);
   }
 
-  auto(delay = 5000) {
+  auto(interval = 5000) {
     this.stop();
-    if(Number.isFinite(delay)) {
-      this.#intervalId = setInterval(() => this.loop(), delay);
+    if(Number.isFinite(interval)) {
+      this.#intervalId = setInterval(() => this.loop(), interval);
     }
   }
 
