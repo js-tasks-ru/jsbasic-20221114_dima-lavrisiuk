@@ -61,7 +61,7 @@ export default class Carousel {
   #onRightArrowClick = () => this.#actionSwitchSlider(+1);
 
   #onButtonClick = (event) => {
-    event.target.dispatchEvent(
+    event.currentTarget.dispatchEvent(
       new CustomEvent('product-add', {
         bubbles: true,
         detail: event.currentTarget.closest('.carousel__slide').dataset.id
