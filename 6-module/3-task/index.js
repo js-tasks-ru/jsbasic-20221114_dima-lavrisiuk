@@ -25,15 +25,19 @@ export default class Carousel {
   }
 
   next() {
-    this.#actionSwitchSlider(+1);
+    if(this.#currentSlideNumber < this.#totalSlideAmount - 1) {
+      this.#actionSwitchSlider(+1);
+    }
   }
 
   prev() {
-    this.#actionSwitchSlider(-1);
+    if(this.#currentSlideNumber > 0) {
+      this.#actionSwitchSlider(-1);
+    }
   }
 
   loop() {
-    if(this.#currentSlideNumber === this.#totalSlideAmount - 1) {
+    if(this.#currentSlideNumber >= this.#totalSlideAmount - 1) {
       this.#currentSlideNumber = 0;
       this.#actionSwitchSlider(0);
       return;
