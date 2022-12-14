@@ -6,6 +6,7 @@ export default class Carousel {
   #arrowRight         = null;
   #currentSlideNumber = null;
   #totalSlideAmount   = null;
+  #intervalId         = null;
 
   constructor(slides) {
     this.#carousel = createElement(this.#templateCarousel(slides));
@@ -14,13 +15,41 @@ export default class Carousel {
     this.#currentSlideNumber = 0;
     this.#totalSlideAmount = slides.length;
 
-    this.#updateVisibilityOfArrows();
-
     this.#arrowLeft.addEventListener('click', this.#onLeftArrowClick);
     this.#arrowRight.addEventListener('click', this.#onRightArrowClick);
     this.#carousel.querySelectorAll('.carousel__slide').forEach(slide => {
       slide.querySelector('.carousel__button').addEventListener('click', this.#onButtonClick);
     });
+
+    this.#updateVisibilityOfArrows();
+  }
+
+  next() {
+    this.#actionSwitchSlider(+1);
+  }
+
+  prev() {
+    this.#actionSwitchSlider(-1);
+  }
+
+  loop() {
+    if(this.#currentSlideNumber === this.#totalSlideAmount - 1) {
+      this.#currentSlideNumber = 0;
+      this.#actionSwitchSlider(0);
+      return;
+    }
+    this.#actionSwitchSlider(+1);
+  }
+
+  auto(delay = 5000) {
+    this.stop();
+    if(Number.isFinite(delay)) {
+      this.#intervalId = setInterval(() => this.loop(), delay);
+    }
+  }
+
+  stop() {
+    clearInterval(this.#intervalId);
   }
 
   get elem() {
