@@ -11,12 +11,13 @@ export default class Carousel {
     this.#carousel = createElement(this.#templateCarousel(slides));
     this.#arrowLeft = this.#carousel.querySelector('.carousel__arrow_left');
     this.#arrowRight = this.#carousel.querySelector('.carousel__arrow_right');
+    this.#currentSlideNumber = 0;
     this.#totalSlideAmount = slides.length;
 
-    this.#setCurrentSlideNumber(0);
+    this.#updateVisibilityOfArrows();
 
-    this.#arrowLeft.addEventListener('click', this.#onArrowClick);
-    this.#arrowRight.addEventListener('click', this.#onArrowClick);
+    this.#arrowLeft.addEventListener('click', this.#onLeftArrowClick);
+    this.#arrowRight.addEventListener('click', this.#onRightArrowClick);
     this.#carousel.querySelectorAll('.carousel__slide').forEach(slide => {
       slide.querySelector('.carousel__button').addEventListener('click', this.#onButtonClick);
     });
@@ -26,10 +27,9 @@ export default class Carousel {
     return this.#carousel;
   }
 
-  #onArrowClick = (event) => {
-    const direction = (event.currentTarget === this.#arrowLeft) ? -1 : +1;
-    this.#setCurrentSlideNumber(this.#currentSlideNumber + direction);
-  };
+  #onLeftArrowClick = () => this.#actionSwitchSlider(-1);
+
+  #onRightArrowClick = () => this.#actionSwitchSlider(+1);
 
   #onButtonClick = (event) => {
     event.target.dispatchEvent(
@@ -40,10 +40,9 @@ export default class Carousel {
     );
   };
 
-  #setCurrentSlideNumber(number) {
-    this.#currentSlideNumber = number;
+  #actionSwitchSlider(position) {
+    this.#currentSlideNumber = this.#currentSlideNumber + position;
     const shift = this.#getSlideWidth() * this.#currentSlideNumber * -1;
-
     this.#carousel.querySelector('.carousel__inner').style.transform = `translateX(${shift}px)`;
     this.#updateVisibilityOfArrows();
   }
