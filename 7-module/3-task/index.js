@@ -18,10 +18,12 @@ export default class StepSlider {
   }
 
   #onSliderClick = (event) => {
+    const segments = this.#steps - 1;
     const sliderWidth = this.#slider.getBoundingClientRect().width;
-    const segmentWidth = sliderWidth / (this.#steps - 1);
+    const segmentWidth = sliderWidth / segments;
+    const relativeCordClick = event.clientX - this.#slider.getBoundingClientRect().x;
 
-    this.#setActiveStep(Math.round(event.offsetX / segmentWidth));
+    this.#setActiveStep(Math.round(relativeCordClick / segmentWidth));
 
     event.currentTarget.dispatchEvent(
       new CustomEvent('slider-change', {
@@ -40,14 +42,15 @@ export default class StepSlider {
       this.#value = number;
     }
 
-    const newPosition = (100 / (this.#steps - 1)) * this.#value;
+    const segments = this.#steps - 1;
+    const positionInPercents = (100 / segments) * this.#value;
 
     this.#slider.querySelector('.slider__value').innerText = this.#value;
-    this.#slider.querySelector('.slider__thumb').style.left = `${newPosition}%`;
-    this.#slider.querySelector('.slider__progress').style.width = `${newPosition}%`;
+    this.#slider.querySelector('.slider__thumb').style.left = `${positionInPercents}%`;
+    this.#slider.querySelector('.slider__progress').style.width = `${positionInPercents}%`;
 
-    const steps = this.#slider.querySelector('.slider__steps').children;
-    Array.from(steps).map((e, i) => {
+    Array.from(this.#slider.querySelector('.slider__steps').children)
+      .map((e, i) => {
       (this.#value === i) ? e.classList.add('slider__step-active') : e.classList.remove('slider__step-active')
     });
   }
