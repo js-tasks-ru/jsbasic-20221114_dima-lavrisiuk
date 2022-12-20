@@ -110,20 +110,15 @@ export default class StepSlider {
 
     const percentWidth = (100 / this.segments) * this.value;
     this.#updateStateOfSteps(this.value, percentWidth);
-
-    let i = 0;
-    for (const step of this.#stepsElement.children) {
-      (this.value === i)
-        ? step.classList.add('slider__step-active')
-        : step.classList.remove('slider__step-active');
-      i += 1;
-    }
   }
 
   #updateStateOfSteps(value, percentWidth) {
     this.#valueElement.innerText = value;
     this.#thumbElement.style.left = `${percentWidth}%`;
     this.#progressElement.style.width = `${percentWidth}%`;
+
+    this.#stepsElement.querySelector('.slider__step-active')?.classList.remove('slider__step-active');
+    this.#stepsElement.children[this.value].classList.add('slider__step-active');
   }
 
   #generateCustomEvent() {
